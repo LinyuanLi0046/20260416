@@ -651,6 +651,7 @@ class EagleDraftInput(SpecInput, EagleDraftInputV2Mixin):
     # Inputs for V2 overlap worker
     future_indices: Optional[FutureIndices] = None
     new_seq_lens: Optional[torch.Tensor] = None
+    new_seq_lens_cpu: Optional[torch.Tensor] = None
     verify_done: Optional[torch.cuda.Event] = None
 
     def __post_init__(self):
@@ -691,6 +692,7 @@ class EagleDraftInput(SpecInput, EagleDraftInputV2Mixin):
             topk_index=torch.empty((0, topk), device=device, dtype=torch.int64),
             capture_hidden_mode=capture_hidden_mode,
             new_seq_lens=torch.empty((0,), device=device, dtype=torch.int32),
+            new_seq_lens_cpu=torch.empty((0,), dtype=torch.int32, device="cpu"),
             accept_length=torch.empty((0,), device=device, dtype=torch.int32),
             accept_length_cpu=[],
         )
